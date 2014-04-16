@@ -1,0 +1,31 @@
+.ajax-loader{
+    width: 16px;
+    height: 11px;
+    background: url(../images/ajax-loader.gif) 0 0 no-repeat;
+    display: none;
+  }
+
+  .remove-icon{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: url(../images/remove.png) 0 0 no-repeat;
+    cursor: pointer;
+    margin-top: 3px;
+  }
+
+  #delivery-infos{
+    display: none;
+  }
+
+  .ui-autocomplete-loading {
+    background: white url(../images/ajax-loader.gif) right center no-repeat;
+  }
+
+  .trash-container{
+    text-align: center;
+  }
+
+  #cash-amount{
+    display: none;
+  }
