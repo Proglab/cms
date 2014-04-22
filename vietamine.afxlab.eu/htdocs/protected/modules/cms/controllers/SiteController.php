@@ -46,13 +46,17 @@ class SiteController extends Controller
 	public function actionError()
 	{
             $this->layout='//layouts/main';
-		if($error=Yii::app()->errorHandler->error)
-		{
-			if(Yii::app()->request->isAjaxRequest)
-				echo $error['message'];
-			else
-				$this->render('error', $error);
-		}
+            if($error=Yii::app()->errorHandler->error)
+            {
+                if ($error['code'] == 403)
+                {
+                    $this->redirect('/cms/site/login');
+                }
+                if(Yii::app()->request->isAjaxRequest)
+                        echo $error['message'];
+                else
+                        $this->render('error', $error);
+            }
 	}
 
 	/**
@@ -91,15 +95,9 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-            $model = PagesAR::model()->findByUrl("login");
-            $this->layout = $model->structure;    
-            $this->page = $model;
-            
-            $model=new LoginForm;
-
-            // if it is ajax validation request
-            if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+            if (Yii::app()->request->isAjaxRequest)
             {
+                $model=new LoginForm;
                 $model->attributes=$_POST['LoginForm'];
                 $model->rememberMe = $_POST['rememberMe'];
                 if($model->validate() && $model->login())
@@ -112,7 +110,20 @@ class SiteController extends Controller
                 }
                 Yii::app()->end();
             }
-            $this->render('//common',array('model'=>$model));
+            else
+            {
+                $model = PagesAR::model()->findByUrl("login");
+                $this->layout = $model->structure;    
+                $this->page = $model;
+                $params = array();
+                foreach($this->page->getWidgets() as $widget)
+                {
+                    $position = $widget['spot'];
+                    $widget = $widget['widgets'];
+                    $params[$position][] = $widget;
+                }
+                $this->render("//structures/".$this->page->structure, array('page'=>$model, 'widgets' => $params));
+            }
 	}
 
 	/**
@@ -134,6 +145,7 @@ class SiteController extends Controller
             {
                 $model = PagesAR::model()->findByUrl($_GET['view']);
             }
+            
             if ($model === NULL)
             {
                 Yii::app()->runController($_GET['view']);
@@ -142,6 +154,7 @@ class SiteController extends Controller
             {
                 if (Yii::app()->acl->checkRight($model->resource))
                 {
+                    $this->pageTitle = Yii::app()->name . ' - ' . $model->title;
                     $this->layout = $model->structure;
                     $this->page = $model;
                     $params = array();

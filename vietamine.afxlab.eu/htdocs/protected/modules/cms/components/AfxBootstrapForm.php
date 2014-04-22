@@ -1,5 +1,4 @@
 <?php
-
 class AfxBootstrapForm
 {
 	protected $output;
@@ -265,6 +264,55 @@ class AfxBootstrapForm
 		$this->output .= '</div >';
 		$this->output .= '</form >';
 		
+	}
+
+	public function selectBirdayDate($type, $formElemIdPrefix, $value = null)
+	{
+		$value ='<select id="' . $formElemIdPrefix . '-birthday_' . $type . '" name="birthday_' . $type . '">';
+		switch ($type)
+		{
+			case 'day':
+				$value .= '<option value="">Jour</option>';
+				for($i=1; $i < 32; $i++)
+				{
+					if($i <= 9)
+					{
+						$displayN = '0' . $i;
+					}
+					else
+					{
+						$displayN = $i;
+					}
+					$value .= '<option value="' . $i . '">' . $displayN . '</option>';
+				}
+				break;
+			
+			case 'month':
+				$value .= '<option value="">Mois</option>';
+				for($i=1; $i < 13; $i++)
+				{
+					if($i <= 9)
+					{
+						$displayN = '0' . $i;
+					}
+					else
+					{
+						$displayN = $i;
+					}
+					$value .= '<option value="' . $i . '">' . $displayN . '</option>';
+				}
+				break;
+			
+			case 'year':
+				$value .= '<option value="">Année</option>';
+				for($i= date("Y") - 2; $i > 1950 ; $i--)
+				{
+					$value .= '<option value="' . $i . '">' . $i . '</option>';
+				}
+				break;
+		}
+		$value .='</select>';
+		return $value;
 	}
 
 	public function renderForm(){

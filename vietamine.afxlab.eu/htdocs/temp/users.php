@@ -195,6 +195,15 @@ ini_set('display_errors', '1');
 
 <div class="main-content" id="full-width">
   
+  <section class="bottom-20">
+    <div class="container">
+      <h3 class="heading-block heading-style1">
+        <span>Ajouter un utilisateur</span>
+      </h3>
+      <button type="button" class="button" id="add-user-btn">Ajouter<i class="fa fa-plus"></i></button>
+    </div>
+  </section>
+
   <section>
     <div class="container">
       <h3 class="heading-block heading-style1">
@@ -238,68 +247,22 @@ ini_set('display_errors', '1');
               <span class="fa fa-trash-o delete-user" title="Supprimer l'utilisateur" onclick="deleteUser();"></span>
             </td>
           </tr>
+          <tr>
+            <td>vbnv</td>
+            <td>qsyutyydqd</td>
+            <td>hgfseze</td>
+            <td>xsgjkq</td>
+            <td>dfhgtxxgdfg</td>
+            <td>ioyifgys</td>
+            <td>
+              <span class="fa fa-pencil edit-user" title="Modifier l'utilisateur" onclick="editUser();"></span>
+              <span class="fa fa-trash-o delete-user" title="Supprimer l'utilisateur" onclick="deleteUser();"></span>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div><!-- // .container -->
   </section><!-- // section -->
-
-  <section>
-    <div class="container">
-      <h3 class="heading-block heading-style1">
-        <span>Test</span>
-      </h3>
-      <?php
-
-      include("class/AfxBootstrapForm.php");
-      $form = new AfxBootstrapForm(array('formElemIdPrefix'=>'form'));
-      $form->openForm(array(
-        'id'=>'test-form', 
-        'onsubmit'=>'return false;', 
-        'data'=> array(array('id', 'test'))
-        )
-      );
-      
-      $form->addInput(array(
-        'name'=> 'firstname',
-        'placeholder'=> 'ca marche...',
-        'label'=> array('label'=> 'Prénom')
-      ));
-
-      $form->addInput(array(
-        'name'=> 'lastname',
-        'label'=> array('label'=> 'Nom')
-      ));
-
-      $form->addSelect(array(
-        'options'=> array(
-          array('val'=> '1', 'label'=> 'Test select 01'),
-          array('val'=> '2', 'label'=> 'Test select 02', 'selected'=> true),
-          array('val'=> '3', 'label'=> 'Test select 03')
-        ),
-        'name'=> 'selectMe',
-        'label'=> array('label'=> 'Select')
-      ));
-
-      $form->addInput(array(
-        'name'=> 'actif',
-        'type'=> 'checkbox',
-        'value'=> 1,
-        'label'=> array('label'=> 'Actif')
-      ));
-
-      $form->closeForm(array(
-        'class'=> '',
-        'buttons'=> array(
-          array('type'=> 'submit', 'label'=> 'Sauver', 'in'=> 'i', 'inClass'=> 'fa fa-hand-o-right'),
-          array('type'=> 'button', 'label'=> 'Annuler', 'class'=>'blue', 'in'=> 'i', 'inClass'=> 'fa fa-plus')
-        )
-      ));
-      
-      echo $form->renderForm();
-
-      ?>
-    </div>
-  </section>
 
 </div><!-- // .main-content -->
 <!-- Modal début -->
@@ -308,19 +271,100 @@ ini_set('display_errors', '1');
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="dialog-modal-title">qsdqsdqsdqsdqdq</h4>
+          <h4 class="modal-title" id="dialog-modal-title">Ajouter un utilisateur</h4>
         </div>
         <form id="modal-form" onsubmit="return false;">
-          <div class="modal-body">
-            sdqsdqdqdq
+          <div class="modal-body clearfix">
             <?php
+
+            include("class/AfxBootstrapForm.php");
+            $form = new AfxBootstrapForm(array('formElemIdPrefix'=>'form'));
+            
+            /*
+            $form->openForm(array(
+              'id'=>'test-form', 
+              'onsubmit'=>'return false;', 
+              'data'=> array(array('id', 'test'))
+              )
+            );
+            */
+            
+            $form->addInput(array(
+              'type'=> 'hidden',
+              'name'=> 'user_id'
+            ));
+
+            $form->addInput(array(
+              'name'=> 'firstname',
+              'label'=> array('label'=> 'Prénom')
+            ));
+
+            $form->addInput(array(
+              'name'=> 'lastname',
+              'label'=> array('label'=> 'Nom')
+            ));
+
+            $form->addInput(array(
+              'type'=> 'email',
+              'name'=> 'mail',
+              'label'=> array('label'=> 'Email')
+            ));
+
+            $form->addInput(array(
+              'type'=> 'tel',
+              'name'=> 'tel',
+              'label'=> array('label'=> 'Téléphone')
+            ));
+
+            $form->addInput(array(
+              'type'=> 'tel',
+              'name'=> 'gsm',
+              'label'=> array('label'=> 'Gsm')
+            ));
+
+
+
+            /*
+            $form->addTextarea(array(
+              'name'=> 'textarea',
+              'label'=> array('label'=> 'Message')
+            ));
+            */
+
+            $form->addSelect(array(
+              'options'=> array(
+                array('val'=> '1', 'label'=> 'Administrateur'),
+                array('val'=> '2', 'label'=> 'Client', 'selected'=> true)
+              ),
+              'name'=> 'user_type',
+              'label'=> array('label'=> 'Type')
+            ));
+
+            $form->addInput(array(
+              'name'=> 'actif',
+              'type'=> 'checkbox',
+              'value'=> 1,
+              'attr'=> array(array('checked', 'checked')),
+              'label'=> array('label'=> 'Actif')
+            ));
+
+            /*
+            $form->closeForm(array(
+              'class'=> '',
+              'buttons'=> array(
+                array('type'=> 'submit', 'label'=> 'Sauver', 'in'=> 'i', 'inClass'=> 'fa fa-hand-o-right'),
+                array('type'=> 'button', 'label'=> 'Annuler', 'class'=>'blue', 'in'=> 'i', 'inClass'=> 'fa fa-plus')
+              )
+            ));
+            */
+            echo $form->renderForm();
 
             ?>
 
           </div>
           <div class="modal-footer">
-            <button type="button" id="modal-btn-rtn-false" class="btn btn-default" data-dismiss="modal">No</button>
-            <button type="submit" id="modal-btn-rtn-true" class="btn btn-primary">Yes</button>
+            <button type="button" id="modal-btn-rtn-false" class="btn btn-default" data-dismiss="modal">Annuler</button>
+            <button type="submit" id="modal-btn-rtn-true" class="btn btn-primary">Ajouter</button>
             <span id="dialog-modal-loader" class="ajax-loader"></span>
           </div>
       </form>
@@ -409,14 +453,75 @@ $(document).ready(function(){
     "oLanguage": {
                 "sUrl": "../themes/vietamine-btp3/js/dt/fr.txt"
             }
-  }); 
+  });
+
+  $('#add-user-btn').click(function(){
+    setModalForm('add');
+    });
+  });
+
 });
 
 function editUser()
 {
-  $('#dialog-modal').modal({
-    show:true
-  });
+  setModalForm('edit')
+}
+
+function setModalForm(type)
+{
+   $('#dialog-modal').modal({
+      show:true
+    });
+
+   $('#modal-form').submit(function()
+   {
+
+    var postUrl = '';
+    var postData = $('#modal-form').serialize();
+    switch(type)
+    {
+      case 'add':
+      postUrl = '/index.php?r=user/add';
+      break;
+
+      case 'edit':
+      postUrl = '/index.php?r=user/edit';
+      break;
+    }
+
+    $('#modal-footer button').hide();
+    $('#modal-footer .aja-loader').css('display', 'inline-block');
+
+    $.ajax({
+      type: "POST",
+      url: postUrl,
+      data: postData,
+      success: function(data)
+      {
+        console.log(data);
+        $('#modal-form').reset();
+        $('#modal-footer button').show();
+        $('#modal-footer .aja-loader').css('display', 'none');
+        $('#dialog-modal').modal('hide');
+
+      },
+      error: function(xhr, ajaxOptions, thrownError)
+      {
+        $('#modal-footer button').show();
+        $('#modal-footer .aja-loader').css('display', 'none');
+        console.log(xhr);
+        console.log(thrownError);
+      }
+    });
+
+    $('#dialog-modal').on('hide.bs.modal', function (e) {
+      $('#modal-form').unbind('submit');
+    });
+}
+
+jQuery.fn.reset = function ()
+{
+  $(this).each (function() { this.reset(); });
 }
 
 </script>

@@ -5,12 +5,12 @@
     </li>
 
     <li>
-      <a href="page.html">Qui sommes-nous</a>
+      <a href="#">Qui sommes-nous</a>
       <ul>
-        <li><a href="">Notre pédagogie</a></li>
-        <li><a href="">Coatchs Vie tamine</a></li>
-        <li><a href="">Charte de qualité</a></li>
-        <li><a href="">Conditions générales</a></li>
+        <li><a href="/pédagogie">Notre pédagogie</a></li>
+        <li><a href="/coatchs">Coatchs Vie tamine</a></li>
+        <li><a href="/charte-de-qualité">Charte de qualité</a></li>
+        <li><a href="/conditions-générales">Conditions générales</a></li>
       </ul>
     </li>
 
@@ -22,9 +22,9 @@
         <li><a href="">Club Competition V Team</a></li>
         <li><a href="">Club Adulte</a></li>
         <li><a href="">Rassemblement Jeunes</a></li>
-        <li><a href="">V Box</a></li>
-        <li><a href="">Interclub Jeunes</a></li>
-        <li><a href="">Evènements</a></li>
+        <li><a href="/VBox">V Box</a></li>
+        <li><a href="/interclub-jeunes">Interclub Jeunes</a></li>
+        <li><a href="/événements">Evènements</a></li>
       </ul>
     </li>
 
@@ -53,15 +53,15 @@
     <li>
       <a href="">Terrains</a>
       <ul>
-        <li><a href="">Park Wolu</a></li>
-        <li><a href="">Euro Tennis Club</a></li>
+        <li><a href="/park-wolu">Park Wolu</a></li>
+        <li><a href="/euro-tennis-club">Euro Tennis Club</a></li>
       </ul>
     </li>
 
-    <li><a href="">Anniversaires sportifs</a></li>
+    <li><a href="/anniversaires-sportifs">Anniversaires sportifs</a></li>
 
-    <li><a href="">Photos</a></li>
+    <li><a href="/galeries">Photos</a></li>
 
-    <li><a href="">Jobs</a></li>
+    <li><a href="/jobs">Jobs</a></li>
   </ul>
 </nav><!-- // nav -->

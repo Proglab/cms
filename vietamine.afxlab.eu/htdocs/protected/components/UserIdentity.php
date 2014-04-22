@@ -29,8 +29,8 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		 $user= Users::model()->find('LOWER(email)=?', array(strtolower($this->username)));
-                if($user === null)
+		$user= Users::model()->find('LOWER(email)=?', array(strtolower($this->username)));
+                if($user === null || $user->active == 0)
                 {
                     $this->errorCode= self::ERROR_UNKNOWN_IDENTITY;
                 }

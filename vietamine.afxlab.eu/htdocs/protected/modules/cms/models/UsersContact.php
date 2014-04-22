@@ -1,22 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "right".
+ * This is the model class for table "users_contact".
  *
- * The followings are the available columns in table 'right':
+ * The followings are the available columns in table 'users_contact':
  * @property integer $id
- * @property string $resource
- * @property string $role
- * @property string $access
+ * @property integer $users_id
+ * @property string $tel
+ * @property string $mobile
+ *
+ * The followings are the available model relations:
+ * @property Users $users
  */
-class Right extends CActiveRecord
+class UsersContact extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'right';
+		return 'users_contact';
 	}
 
 	/**
@@ -27,13 +30,12 @@ class Right extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('resource, role', 'required'),
-			array('resource', 'length', 'max'=>50),
-			array('role', 'length', 'max'=>45),
-			array('access', 'length', 'max'=>1),
+			array('users_id', 'required'),
+			array('users_id', 'numerical', 'integerOnly'=>true),
+			array('tel, mobile', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, resource, role, access', 'safe', 'on'=>'search'),
+			array('id, users_id, tel, mobile', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,6 +47,7 @@ class Right extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'users' => array(self::HAS_ONE, 'Users', 'id'),
 		);
 	}
 
@@ -55,9 +58,9 @@ class Right extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'resource' => 'Resource',
-			'role' => 'Role',
-			'access' => 'Access',
+			'users_id' => 'Users',
+			'tel' => 'Tel',
+			'mobile' => 'Mobile',
 		);
 	}
 
@@ -80,9 +83,9 @@ class Right extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('resource',$this->resource,true);
-		$criteria->compare('role',$this->role,true);
-		$criteria->compare('access',$this->access,true);
+		$criteria->compare('users_id',$this->users_id);
+		$criteria->compare('tel',$this->tel,true);
+		$criteria->compare('mobile',$this->mobile,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -93,10 +96,17 @@ class Right extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Right the static model class
+	 * @return UsersContact the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
-		return parent::model($className);
+            return parent::model($className);
 	}
+        
+        public function findByUserId($id)
+        {
+            $this->users_id = $id;
+            $result = $this->search()->getData();
+            return $result[0];
+        }
 }

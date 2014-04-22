@@ -29,11 +29,11 @@
 	<div id="mainmenu">
                 <?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Pages', 'url'=>array('/pages/admin')),
-				array('label'=>'Widgets', 'url'=>array('/widgets/admin')),
-				array('label'=>'Pages_Widgets', 'url'=>array('/pagesWidgets/admin')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Pages', 'url'=>array('/cms/pages/admin')),
+				array('label'=>'Widgets', 'url'=>array('/cms/widgets/admin')),
+				array('label'=>'Pages_Widgets', 'url'=>array('/cms/pagesWidgets/admin')),
+				array('label'=>'Login', 'url'=>array('/cms/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/cms/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
 	</div><!-- mainmenu -->

@@ -36,7 +36,7 @@ else:
       <span class="sr-only">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li><a href="/index.php?r=site/page&view=profile">Profile</a></li>
+      <li><a href="/profile">Profile</a></li>
       <li><a href="#">Mot de passe</a></li>
       <li><a href="#">Panier</a></li>
       <li><a href="#">Commandes</a></li>
@@ -53,11 +53,11 @@ else:
       if(Yii::app()->user->isSuperAdmin()):
       ?>
       <li class="divider"></li>
-      <li><a href="/index.php?r=pages/admin">Superadmin</a></li>
+      <li><a href="/cms/pages">Superadmin</a></li>
       <?php
       endif;
       ?>
-      <li><a href="/index.php?r=site/logout">Déconnexion</a></li>
+      <li><a href="/cms/site/logout">Déconnexion</a></li>
     </ul>
   </div>
 </div>

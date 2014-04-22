@@ -9,12 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('company')); ?>:</b>
-	<?php echo CHtml::encode($data->company); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('lastname')); ?>:</b>
+	<?php echo CHtml::encode($data->lastname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('firstname')); ?>:</b>
@@ -33,11 +29,11 @@
 	<?php echo CHtml::encode($data->pass); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ip')); ?>:</b>
 	<?php echo CHtml::encode($data->ip); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('session_id')); ?>:</b>
 	<?php echo CHtml::encode($data->session_id); ?>
 	<br />
@@ -48,6 +44,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creation_date')); ?>:</b>
 	<?php echo CHtml::encode($data->creation_date); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('active')); ?>:</b>
+	<?php echo CHtml::encode($data->active); ?>
 	<br />
 
 	*/ ?>

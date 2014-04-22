@@ -4,7 +4,7 @@
     <?php 
         foreach($widgets['content'] as $widget)
         {
-            $this->widget($widget->name, array('directory' => $widget->directory, 'content' => $widget->content, 'page' => $this->page));
+            $this->widget($widget->name, array('directory' => $widget->directory, 'content' => $widget->content, 'page' => $this->page, 'widget' => $widget));
         }
     ?>
 </div><!-- content -->

@@ -1,34 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "catalog_products_localisation".
  *
- * The followings are the available columns in table 'users':
+ * The followings are the available columns in table 'catalog_products_localisation':
  * @property integer $id
- * @property string $company
- * @property string $name
- * @property string $firstname
- * @property string $role
- * @property string $email
- * @property string $pass
- * @property string $ip
- * @property string $session_id
- * @property string $last_connected
- * @property string $creation_date
+ * @property integer $catalog_products_id
+ * @property string $label
+ * @property string $address
+ * @property string $address2
+ * @property string $zip
+ * @property string $city
+ * @property string $country
+ *
+ * The followings are the available model relations:
+ * @property CatalogProducts $catalogProducts
  */
-class Users extends CActiveRecord
+class CatalogProductsLocalisation extends CActiveRecord
 {
-    
-        const ROLE_ADMIN = 'admin';
-        const ROLE_SUPERADMIN = 'superadmin';
-        const ROLE_REGISTERED = 'client';
-        
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'catalog_products_localisation';
 	}
 
 	/**
@@ -39,17 +34,14 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, role, email, pass, creation_date', 'required'),
-			array('company', 'length', 'max'=>45),
-			array('name, firstname', 'length', 'max'=>50),
-			array('role, session_id', 'length', 'max'=>30),
-			array('email', 'length', 'max'=>150),
-			array('pass', 'length', 'max'=>32),
-			array('ip', 'length', 'max'=>15),
-			array('last_connected', 'safe'),
+			array('catalog_products_id', 'required'),
+			array('catalog_products_id', 'numerical', 'integerOnly'=>true),
+			array('label, zip, city', 'length', 'max'=>45),
+			array('address, address2', 'length', 'max'=>100),
+			array('country', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, company, name, firstname, role, email, pass, ip, session_id, last_connected, creation_date', 'safe', 'on'=>'search'),
+			array('id, catalog_products_id, label, address, address2, zip, city, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +53,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'product' => array(self::HAS_ONE, 'CatalogProducts', 'catalog_products_id'),
 		);
 	}
 
@@ -71,16 +64,13 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'company' => 'Company',
-			'name' => 'Name',
-			'firstname' => 'Firstname',
-			'role' => 'Role',
-			'email' => 'Email',
-			'pass' => 'Pass',
-			'ip' => 'Ip',
-			'session_id' => 'Session',
-			'last_connected' => 'Last Connected',
-			'creation_date' => 'Creation Date',
+			'catalog_products_id' => 'Catalog Products',
+			'label' => 'Label',
+			'address' => 'Address',
+			'address2' => 'Address2',
+			'zip' => 'Zip',
+			'city' => 'City',
+			'country' => 'Country',
 		);
 	}
 
@@ -103,16 +93,13 @@ class Users extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('company',$this->company,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('firstname',$this->firstname,true);
-		$criteria->compare('role',$this->role,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('pass',$this->pass,true);
-		$criteria->compare('ip',$this->ip,true);
-		$criteria->compare('session_id',$this->session_id,true);
-		$criteria->compare('last_connected',$this->last_connected,true);
-		$criteria->compare('creation_date',$this->creation_date,true);
+		$criteria->compare('catalog_products_id',$this->catalog_products_id);
+		$criteria->compare('label',$this->label,true);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('address2',$this->address2,true);
+		$criteria->compare('zip',$this->zip,true);
+		$criteria->compare('city',$this->city,true);
+		$criteria->compare('country',$this->country,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -123,7 +110,7 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return CatalogProductsLocalisation the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

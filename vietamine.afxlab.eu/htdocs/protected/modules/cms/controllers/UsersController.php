@@ -15,7 +15,7 @@ class UsersController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + profile, changepass', // we only allow deletion via POST request
 		);
 	}
 
@@ -32,7 +32,7 @@ class UsersController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'profile', 'changepass'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -141,6 +141,38 @@ class UsersController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+        
+        public function actionProfile()
+	{
+            if(Yii::app()->request->isAjaxRequest)
+            {
+                    $model=Users::model()->findByPk(Yii::app()->user->id);
+                    $model->attributes=$_POST;
+                    $model->save();
+                    
+                    $model=UsersContact::model()->findByUserId(Yii::app()->user->id);
+                    $model->attributes=$_POST;
+                    $model->save();
+            }
+            else
+            {
+                throw new CHttpException(400, 'Bien essayé ;)');
+            }
+	}
+        
+        public function actionChangepass()
+	{
+            if(Yii::app()->request->isAjaxRequest)
+            {
+                $model=Users::model()->findByPk(Yii::app()->user->id);
+                $model->pass=md5($_POST['password']);
+                $model->save();
+            }
+            else
+            {
+                throw new CHttpException(400, 'Bien essayé ;)');
+            }
 	}
 
 	/**

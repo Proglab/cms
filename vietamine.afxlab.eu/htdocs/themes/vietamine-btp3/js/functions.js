@@ -69,7 +69,7 @@ jQuery(document).ready(function($){
 			var postData = $(this).serialize();
 			$.ajax({
 				type: "POST",
-				url: '/index.php?r=site/login',
+				url: '/cms/site/login',
 				data: postData,
 				success: function(data)
 				{
@@ -395,7 +395,7 @@ jQuery(document).ready(function($){
 
 		$.ajax({
 			type: "POST",
-			url: '/index.php?r=site/login',
+			url: '/cms/site/login',
 			data: data,
 			success: function(data)
 			{
@@ -409,12 +409,119 @@ jQuery(document).ready(function($){
 				$('button').show();
 				console.log(xhr);
 				console.log(thrownError);
-				$('#message').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Error: login or password is incorrect').fadeIn();
+				//$('#message').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Error: login or password is incorrect').fadeIn();
 			}
 		});
 	});
 	
 });
+
+var alertI = 0;
+function setMessage(msg, type, spot)
+{
+	var html = '<div id="alert-' + alertI + '" class="alert ' + type + ' fade in">';
+	html += '<p>' + msg + '</p>';
+	html += '<a class="close" data-dismiss="alert" href="#" aria-hidden="true"><i class="fa fa-times-circle"></i></a>';
+	html += '</div>';
+
+	$(spot).prepend(html);
+	/*
+	setInterval(function(){
+		$('#alert-'+ alertI).fadeOut()},
+		3000
+	);
+	*/
+	alertI ++;
+}
+
+
+function checkFormElement(obj)
+{
+	var status = true;
+	for(var i in obj)
+	{
+		switch(obj[i].type)
+		{
+			case 'text':
+			if($(obj[i].element).val() == "")
+			{
+				$(obj[i].element).closest('.form-group').addClass('has-error');
+				status = false;
+			}
+			else
+			{
+				$(obj[i].element).closest('.form-group').removeClass('has-error');
+			}
+			break;
+
+			case 'bool':
+			if(!obj[i].varToCheck)
+			{
+				$(obj[i].element).closest('.form-group').addClass('has-error');
+				status = false;
+			}
+			else
+			{
+				$(obj[i].element).closest('.form-group').removeClass('has-error');
+			}
+			break;
+
+			case 'check-linked':
+			if($(obj[i].element[0]).prop('checked') && $(obj[i].element[1]).val() == "")
+			{
+				$(obj[i].element[1]).closest('.form-group').addClass('has-error');
+				status = false;
+			}
+			else
+			{
+				$(obj[i].element[1]).closest('.form-group').removeClass('has-error');
+			}
+			break;
+
+			case 'not-zero':
+			if(obj[i].varToCheck == 0)
+			{
+				if(isDefined(obj[i].element)) $(obj[i].element).closest('.form-group').addClass('has-error');
+				status = false;
+			}
+			else
+			{
+				if(isDefined(obj[i].element)) $(obj[i].element).closest('.form-group').removeClass('has-error');
+			}
+			break;
+
+			case 'setup-pass':
+			var repeatPass = $(obj[i].element).attr('id') + '_repeat';
+
+			if($(obj[i].element).val() == "" || $("#" + repeatPass).val() != $(obj[i].element).val())
+			{
+				$(obj[i].element).closest('.form-group').addClass('has-error');
+				$("#" + repeatPass).closest('.form-group').addClass('has-error');
+				status = false;
+			}
+			else
+			{
+				$(obj[i].element).closest('.form-group').removeClass('has-error');
+				$("#" + repeatPass).closest('.form-group').removeClass('has-error');
+			}
+			break;
+		}
+	}
+	return status;
+}
+
+function isDefined(data)
+{
+	var status = false;
+	if(typeof data !== 'undefined') status = true;
+	return status
+}
+
+jQuery.fn.reset = function ()
+{
+	$(this).each (function() { this.reset(); });
+}
+
 
 $.fn.serializeObject = function()
 {

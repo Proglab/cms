@@ -17,13 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'company'); ?>
-		<?php echo $form->textField($model,'company',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->label($model,'lastname'); ?>
+		<?php echo $form->textField($model,'lastname',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -64,6 +59,11 @@
 	<div class="row">
 		<?php echo $form->label($model,'creation_date'); ?>
 		<?php echo $form->textField($model,'creation_date'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'active'); ?>
+		<?php echo $form->textField($model,'active',array('size'=>1,'maxlength'=>1)); ?>
 	</div>
 
 	<div class="row buttons">
